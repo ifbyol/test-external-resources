@@ -3,9 +3,9 @@ deploy:
     - name: "Deploy something in k8s"
       command: echo "Deploy something in k8s"
     - name: "Deploy external resources"
-      command: deploy.sh
+      command: ./deploy.sh
       
 destroy:
   commands:
     - name: "Destroy external resources"
-      command: destroy.sh
+      command: ./destroy.sh
