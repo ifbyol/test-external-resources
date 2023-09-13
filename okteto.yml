@@ -13,3 +13,5 @@ destroy:
       command: chmod 777 destroy.sh
     - name: "Destroy external resources"
       command: ./destroy.sh
+    - name: "Sleep command"
+      command: sleep 10
