@@ -2,10 +2,14 @@ deploy:
   commands:
     - name: "Deploy something in k8s"
       command: echo "Deploy something in k8s"
+    - name: "Change file permissions"
+      command: chmod 777 deploy.sh
     - name: "Deploy external resources"
       command: ./deploy.sh
       
 destroy:
   commands:
+    - name: "Change file permissions"
+      command: chmod 777 destroy.sh
     - name: "Destroy external resources"
       command: ./destroy.sh
