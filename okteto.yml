@@ -1,13 +1,12 @@
-build:
-  hello-world:
-    image: okteto.dev/go-hello-world:1.0.0
-    context: .
-
 deploy:
-  image: okteto/pipeline-runner:1.0.0
+  image: okteto/pipeline-runner:v1.0.9
   commands:
-    - name: "Deploy app"
-      command: kubectl apply -f k8s.yml
+    - name: "Generate SQS URL"
+      command: |
+        export SQS_QUEUE_URL="https://fake-$(openssl rand -hex 8).lambda-url.us-east-1.on.aws.aggregator"
+        echo "SQS_QUEUE_URL=$SQS_QUEUE_URL" >> $OKTETO_ENV
+    - name: "Update notes.md with env vars"
+      command: envsubst < notes.md > notes.md.tmp && mv notes.md.tmp notes.md
     - name: "Script"
       command: echo "Doing something fancy"
       
@@ -23,6 +22,7 @@ destroy:
 external:
   sqs:
     icon: storage
+    notes: notes.md
     endpoints:
     - name: queue
       url: https://fake-id.lambda-url.us-east-1.on.aws.aggregator
